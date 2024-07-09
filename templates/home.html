@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">    
+<head>
+    <meta charset="utf-8">
+    <title>Book List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+     <h1>Book list</h1>
+     <div class="row">
+        {% for book in books %}
+            <div class="col-md-4 col-sm-6">
+                <div class="card mb-4">
+                    {% if book.cover_i %}
+                        <img src="http://covers.openlibrary.org/b/id/{{ book.cover_i }}-L.jpg" alt="{{ book.title}}" class="card-img-top">
+                    {% else %}
+                        <img src="default-image.jpg" alt="{{ book.title}}" class="card-img-top">
+                    {% endif %}
+                        <div class="card-body"> 
+                      
+                            <h5 class="card-title"><a href="{{ url_for('book_details', book_id=book.key.split('/')[-1])}}">{{ book.title }}</a></h5>
+                            <p class="card-text">by {{ book.author_name[0] if book.author_name else 'Unknown'}}</p>
+                            <p class="card_text">Published: {{book.first_publish_year if book.first_publish_year else 'N/A' }}</p>
+                </div>
+            </div>
+     </div>
+    {% endfor %}
+    </div>
+    </div>
+</body>
+</html>
